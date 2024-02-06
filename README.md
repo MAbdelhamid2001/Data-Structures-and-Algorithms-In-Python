@@ -1,2 +1,3 @@
 # Data-Structures-and-Algorithms-In-Python
-I have implemented linear and nonlinear data stuctures besides the most popular sorting algorithms and graph traversal algorithms all using python
+I have implemented all linear and nonlinear data structures besides the most popular sorting, graph-traversal, and Path-finding Algorithms all using python
+
