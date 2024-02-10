@@ -34,7 +34,6 @@ class graph: # A_star using priority queue
             f,q=heapq.heappop(q_open)
             closed.add(q) 
             #take q's childrens and put their pred
-            # print(q)
             if q is end:
                 
                 temp=end
