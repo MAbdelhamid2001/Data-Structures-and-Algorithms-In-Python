@@ -1,0 +1,98 @@
+import heapq
+
+class graph: # A_star using priority queue
+    def __init__(self,adjlist):
+        self.adjlist=adjlist
+    
+    
+    def h(self,n):
+        # heuristic={
+        # 'A':1,
+        # 'B':1,
+        # 'C':1,
+        # 'D':1
+        #     }
+        
+        # return heuristic[n]
+        return 1
+    def A_star(self,start,end):
+        
+        q_open=[]
+
+        closed=set()
+        
+        pred=dict()
+        g=dict()
+        
+        heapq.heappush(q_open,(0,start))
+        
+        pred[start]=-1
+        g[start]=0
+        
+        while q_open:
+                        
+            f,q=heapq.heappop(q_open)
+            closed.add(q) 
+            #take q's childrens and put their pred
+            # print(q)
+            if q is end:
+                
+                temp=end
+                path=[]
+                path.append(temp)
+                while pred[temp] !=-1:
+                    path.append(pred[temp])
+                    temp=pred[temp]
+                
+                self.returned_cost=g[end]
+                return path[::-1]
+            
+            if q not in self.adjlist:
+                continue
+            
+            for child ,val in self.adjlist[q]:
+                
+                if child not in q_open and child not in g:
+                    pred[child]=q
+                    g[child]=g[q]+ val
+                    
+                    child_f=g[child]+self.h(child)
+                    heapq.heappush(q_open,(child_f,child))
+                    
+                else:
+                    
+                    if g[q]+val<g[child]:
+                        g[child]=g[q]+val
+                        pred[child]=q
+                        
+        
+    
+if __name__=='__main__':
+    
+
+    
+    data={ #directed
+        'A':[('B',4),('D',6)],
+        'B':[('D',3),('C',5),('E',1)],
+        'C':[('E',6)],
+        'D':[('E',4),('F',1)],
+        'E':[('F',2)],
+            }
+    
+    
+    # data={#undirected
+    #     'A':[('B',1),('C',3),('D',7)],
+    #     'B':[('A',1),('D',5)],
+    #     'C':[('A',3),('D',12)],
+    #     'D':[('A',7),('B',5),('C',12)]
+    #         }
+    
+    start,end='A','F'
+    
+    g=graph(data)
+        
+    returned_path=g.A_star(start, end)
+    print("Path:",returned_path)
+    print("Cost:",g.returned_cost)
+
+
